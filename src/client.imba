@@ -16,20 +16,25 @@ tag App
 			else
 				showmenu1 = true
 				showmenu2 = false
-			log "First" ,showmenu1
 		else
 			if showmenu2
 				showmenu2 = false
 			else
 				showmenu2 = true
 				showmenu1 = false
-			log "Second", showmenu2
+
+	def scroll
+		log "Scroll Y: ", window:scrollY;
+		if window:scrollY > 80 && (showmenu1 || showmenu2)
+			log "scrollY > 80"
+			showmenu1 = false
+			showmenu2 = false
 
 
 	def render
 
 		<self>
-			<header>
+			<header :onscroll=scroll>
 				<nav.navigation_grid .nav_with_sub=showmenu1||showmenu2 css:margin-top=-window:scrollY/1.2 css:opacity=20/window:scrollY>
 					<a.svgWrapper href="#">
 						<svg:svg width="112" height="76" viewBox="0 0 106 32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMid">
@@ -89,7 +94,7 @@ tag App
 										<svg:path d="M112.2,41.4c-1,0-1.8-0.3-2.4-1s-0.9-1.6-0.9-2.8s0.3-2.1,1-2.8c0.6-0.7,1.4-1,2.4-1c0.9,0,1.7,0.3,2.3,1 c0.6,0.7,1,1.6,1,2.8s-0.3,2.1-0.9,2.8C113.9,41.1,113.1,41.4,112.2,41.4z M112.2,40.2c0.6,0,1.1-0.2,1.4-0.7 c0.4-0.5,0.5-1.1,0.5-1.9c0-0.8-0.2-1.5-0.5-1.9c-0.4-0.5-0.8-0.7-1.4-0.7s-1.1,0.2-1.5,0.7s-0.6,1.1-0.6,1.9 c0,0.8,0.2,1.5,0.6,1.9S111.6,40.2,112.2,40.2z">
 										<svg:path d="M117.3,41.2v-7.3h1.3v0.7l0,0c0.2-0.3,0.5-0.5,0.8-0.6c0.4-0.2,0.7-0.3,1.1-0.3c0.8,0,1.4,0.2,1.9,0.7s0.7,1.1,0.7,2v4.8 h-1.3v-4.4c0-1.2-0.5-1.9-1.5-1.9c-0.5,0-0.9,0.1-1.3,0.4c-0.3,0.3-0.5,0.7-0.5,1.2v4.7H117.3z">
 						<div.fall_down_menu_item_flex>
-							<a.fall_down_menu_item_a style="color: rgb(255, 255, 255);" href="#inside-design"  target="_blank">
+							<a.fall_down_menu_item_a style="color: rgb(255, 255, 255);" href="#inside-design">
 								"All Categories"
 								<span> "Digital product design tips, news, and inspiration"
 							<a.fall_down_menu_item_a style="color: rgb(255, 255, 255);" href="#design"> "Design"
@@ -158,14 +163,45 @@ tag App
 							<span>
 								<strong> "Must reads: "
 								"Check out the top 15 blog posts from our archives, from prototyping 101 to best tips for freelancers."
+				<div style="top: 50%; opacity: 1; box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 40px;">
+					<div css:display="none">
+						<a>
+							<svg:svg width="15px" height="14px" viewBox="0 0 15 14" xmlns="http://www.w3.org/2000/svg">
+								<svg:g stroke="none" stroke-width="1" fill="#17191D">
+									<svg:path d="M15,5.8331803 L2.67898833,5.8331803 L7.24068927,1.43309052 C7.5725403,1.11308399 7.58254586,0.585573231 7.26236798,0.254733147 C6.94219011,-0.0761069365 6.41523068,-0.0861071406 6.08337966,0.233066038 L0.46942746,5.64984323 C0.17176209,5.90401508 0,6.27485598 0,6.66653064 C0,7.0582053 0.17176209,7.4290462 0.431072818,7.64821734 L6.08337966,13.0999952 C6.24513619,13.2558318 6.45358533,13.3333333 6.66203446,13.3333333 C6.88048916,13.3333333 7.09811006,13.2474982 7.26236798,13.0783281 C7.58254586,12.747488 7.5725403,12.2199773 7.24068927,11.8999708 L2.67732073,7.49988098 L15,7.49988098 L15,5.8331803 Z">
+							<h4> "Design Community"
+					<div.second_submenu  .show_submenu=showmenu2>
+						<div.second_submenu_item_1 .showsubmenu=showmenu2>
+							<h5.header_5> "Events"
+							<a.fall_down_menu_item_a href="#webinars">
+								"Webinars"
+								<span> "Actionable deep dives with top minds in product design"
+						<div.second_submenu_item_2 .showsubmenu=showmenu2>
+							<h5.header_5> "Leaders"
+							<a.fall_down_menu_item_a href="#design-leadership-forum">
+								"Design Leadership Forum"
+								<span> "Leaders supporting—and learning from—one another"
+							<a.fall_down_menu_item_a href="#designdisruptors.com">
+								"Design Disruptors"
+								<span> "A film showcasing the competitive advantage of design"
+						<div.second_submenu_item_3 .showsubmenu=showmenu2>
+							<h5.header_5> "Innovation"
+							<a.fall_down_menu_item_a href="#design-forward-fund">
+								"Design Forward Fund"
+								<span> "A $5 million fund empowering the future of design"
+						<div.second_submenu_item_4 .showsubmenu=showmenu2>
+								<a.submenu_section_link href="#expert-advice">
+									<img src="https://s3.amazonaws.com/www.invisionapp.com/assets/img/shared/dsm-talk-to-an-expert.jpg">
+									<span>
+										<strong> "Design system video series: "
+										"Watch Brad Frost, Dan Mall, and Josh Clark share the latest thinking in design systems"
 
 			<figure>
 				<div.video_on_back>
-					<video.video-elem style="visibility: inherit; opacity: 0.33;" src="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/intro-clipped.mp4?v=2" poster="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/poster.png?v=2">
-					<div style="visibility: inherit; opacity: 1;">
-						<a style="text-transform:uppercase">
-							<svg:svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12" width="10" preserveAspectRatio="xMinYMin meet">
-								<svg:path d="M0 0l10 6-10 6V0z">
+					<video.video-elem autoplay="autoplay" preload="auto" src="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/intro-clipped.mp4?v=2" poster="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/poster.png?v=2">
+					<a.video_elem_play_link style="text-transform:uppercase">
+						<svg:svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12" width="10" preserveAspectRatio="xMinYMin meet">
+							<svg:path d="M0 0l10 6-10 6V0z">
 				<figcaption>
 					<h1.most_powerful>
 						<span> "The world’s most powerful"
