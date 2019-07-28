@@ -24,18 +24,37 @@ tag App
 				showmenu1 = false
 
 	def scroll
-		log "Scroll Y: ", window:scrollY;
+		# log "Scroll Y: ", window:scrollY;
 		if window:scrollY > 80 && (showmenu1 || showmenu2)
-			log "scrollY > 80"
+			# log "scrollY > 80"
 			showmenu1 = false
 			showmenu2 = false
+
+
+	def navigation_grid_margin_top
+		return window:scrollY < 80 ? -window:scrollY : -80
+
+	def navigation_opacity
+		return window:scrollY == 0 ? 1 : 1 - window:scrollY * 0.005
+
+	def video_on_back_opacity
+		return window:scrollY < 160 ? 0.33 : (window:scrollY - 54)*0.003
+
+	def video_elem_play_link_opacity
+		return window:scrollY < 160 ? 0 : (window:scrollY - 160)*0.003
+
+	def post_nav_top
+		return window:scrollY < 80 ? -81 : 0
+
+	def show_post_menu
+		return window:scrollY < 82 ? 0 : 1;
 
 
 	def render
 
 		<self>
 			<header :onscroll=scroll>
-				<nav.navigation_grid .nav_with_sub=showmenu1||showmenu2 css:margin-top=-window:scrollY/1.2 css:opacity=20/window:scrollY>
+				<nav.navigation_grid .nav_with_sub=showmenu1||showmenu2 css:margin-top=navigation_grid_margin_top css:opacity=navigation_opacity>
 					<a.svgWrapper href="#">
 						<svg:svg width="112" height="76" viewBox="0 0 106 32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMid">
 							<svg:path fill="#f36" d="M0 2v28c0 1.1.9 2 2 2h28c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2H2C.9 0 0 .9 0 2z">
@@ -195,11 +214,29 @@ tag App
 									<span>
 										<strong> "Design system video series: "
 										"Watch Brad Frost, Dan Mall, and Josh Clark share the latest thinking in design systems"
+				<section.navigation_grid.post_nav css:top=post_nav_top>
+					<hr.submenu_hr css:position="absolute">
+					<a.post_svg .show_post_svg=show_post_menu style="color:#FFFFFF; grid-column: 3; display: flex; align-items: center;" href="#studio">
+						<svg:svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMid">
+							<svg:path fill="#f36" d="M0 2v28c0 1.1.9 2 2 2h28c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2H2C.9 0 0 .9 0 2z">
+							<svg:path fill="#FFF" d="M7.1 19.7c-.1.5-.2 1-.2 1.4 0 1.6.9 2.7 2.7 2.7 1.5 0 2.7-.9 3.6-2.4l-.5 2.3h3l1.7-7.2c.4-1.8 1.3-2.8 2.5-2.8 1 0 1.6.6 1.6 1.7 0 .3 0 .6-.1 1l-.9 3.3c-.1.5-.2.9-.2 1.4 0 1.6.9 2.7 2.7 2.7 1.6 0 2.8-1.1 3.5-3.6l-1.2-.5c-.6 1.7-1.1 2-1.5 2-.4 0-.6-.3-.6-.8 0-.3.1-.5.1-.9l.9-3.2c.2-.8.3-1.4.3-2 0-2.4-1.4-3.7-3.1-3.7-1.6 0-3.2 1.5-4 3l.6-2.8h-4.6l-.6 2.5H15l-1.3 5.5c-1 2.4-2.9 2.4-3.2 2.4-.4-.1-.6-.2-.6-.8 0-.3.1-.7.2-1.3l2-8.3H7l-.6 2.5h2.1l-1.4 5.9M10 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z">
+					<section.submenue_flex>
+						<div.for_post_links .animated_link_1=show_post_menu>
+							<a.submenue_link style="margin: 0; color: rgb(255, 51, 102);" href="#"> "Overview"
+						<div.for_post_links .animated_link_2=show_post_menu>
+							<a.submenue_link css:margin=0 href="#"> "Platform"
+						<div.for_post_links .animated_link_3=show_post_menu>
+							<a.submenue_link css:margin=0 href="#"> "Learn"
+						<div.for_post_links .animated_link_4=show_post_menu>
+							<a.submenue_link css:margin=0 href="#"> "New"
+						<a.post_nav_download .animated_link_5=show_post_menu href="#">
+							<span.desktop-text> "Download studio free"
+							<span.mobile-text css:display="none"> "Download studio"
 
 			<figure>
 				<div.video_on_back>
-					<video.video-elem autoplay="autoplay" preload="auto" src="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/intro-clipped.mp4?v=2" poster="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/poster.png?v=2">
-					<a.video_elem_play_link style="text-transform:uppercase">
+					<video.video-elem css:opacity=video_on_back_opacity autoplay="autoplay" preload="auto" src="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/intro-clipped.mp4?v=2" poster="https://s3.amazonaws.com/www.invisionapp.com-studio/cbb346987ce32cc195de4b209e6c70a81c98b906/static/video/poster.png?v=2">
+					<a.video_elem_play_link css:opacity=video_elem_play_link_opacity style="text-transform:uppercase">
 						<svg:svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12" width="10" preserveAspectRatio="xMinYMin meet">
 							<svg:path d="M0 0l10 6-10 6V0z">
 				<figcaption>
